@@ -1,0 +1,17 @@
+{
+  "name": "rest-pkg",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "qs": "^6.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/qs": "^6.14.0",
+    "typescript": "^5.3.3"
+  }
+}
