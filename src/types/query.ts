@@ -32,3 +32,8 @@ export interface GetAllRestQueryParams {
   filters?: RestFilterField[];
   fields?: string[];
 }
+
+export interface GetAllRestPaginatedResponse<T> {
+  results: T[];
+  count: number;
+}
