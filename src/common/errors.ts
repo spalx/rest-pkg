@@ -26,3 +26,20 @@ export class NotFoundError extends BaseError {
 export class InternalServerError extends BaseError {
   readonly code: number = 500;
 }
+
+const errorMap: Record<number, new (message: string) => BaseError> = {
+  400: BadRequestError,
+  401: UnauthorizedError,
+  403: ForbiddenError,
+  404: NotFoundError,
+  500: InternalServerError
+};
+
+function throwErrorForStatus(statusCode: number, message: string): never {
+  const ErrorClass = errorMap[statusCode];
+  if (ErrorClass) {
+    throw new ErrorClass(message);
+  }
+
+  throw new InternalServerError(message);
+}
