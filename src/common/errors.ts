@@ -35,7 +35,7 @@ const errorMap: Record<number, new (message: string) => BaseError> = {
   500: InternalServerError
 };
 
-function throwErrorForStatus(statusCode: number, message: string): never {
+export function throwErrorForStatus(statusCode: number, message: string): never {
   const ErrorClass = errorMap[statusCode];
   if (ErrorClass) {
     throw new ErrorClass(message);
