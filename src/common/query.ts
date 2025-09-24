@@ -12,7 +12,7 @@ export function parseGetAllRestQueryParams(
   const limit: string = (query.limit as string | undefined) || '10';
 
   const fields: string = (query.fields as string | undefined) || '';
-  const fieldsArr: string[] = fields ? decodeURIComponent(fields).split(',').map(f => f.trim()) : [];
+  const fieldsArr: string[] = fields ? fields.split(',').map(f => f.trim()) : [];
 
   const filtersObj = query.filters as Record<string, string> | undefined;
   const filtersArr: RestFilterField[] = [];
@@ -20,7 +20,7 @@ export function parseGetAllRestQueryParams(
   if (filtersObj && typeof filtersObj === 'object') {
     for (const [fieldName, filterValue] of Object.entries(filtersObj)) {
       if (typeof filterValue === 'string') {
-        const arr = decodeURIComponent(filterValue).split(':');
+        const arr = filterValue.split(':');
         if (arr.length >= 2) {
           const operator = arr[0] as RestFilterFieldOperator;
           if (Object.values(RestFilterFieldOperator).includes(operator)) {
@@ -37,7 +37,7 @@ export function parseGetAllRestQueryParams(
   }
 
   const sort: string = (query.sort as string | undefined) || '';
-  const sortFields: string[] = sort ? decodeURIComponent(sort).split(',') : [];
+  const sortFields: string[] = sort ? sort.split(',') : [];
   const sortArr: RestSortField[] = [];
   for (const str of sortFields) {
     const arr = str.split(':');
