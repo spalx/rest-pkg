@@ -6,12 +6,8 @@ export interface RestSortField {
 }
 
 export const RestSortFieldSchema = z.object({
-  sort_by: z.string({ invalid_type_error: "sort_by must be a string" }).min(1, "sort_by cannot be empty"),
-
-  sort_direction: z.number({ invalid_type_error: "sort_direction must be a number" })
-    .refine((val) => val === 1 || val === -1, {
-      message: "sort_direction must be either 1 (ASC) or -1 (DESC)",
-    }),
+  sort_by: z.string('sort_by must be a string').min(1, 'sort_by cannot be empty'),
+  sort_direction: z.literal([1, -1], 'sort_direction must be either 1 (ASC) or -1 (DESC)'),
 });
 
 export enum RestFilterFieldOperator {
@@ -39,12 +35,9 @@ export interface RestFilterField {
 }
 
 export const RestFilterFieldSchema = z.object({
-  name: z.string({ invalid_type_error: "filter name must be a string" })
-    .min(1, "filter name cannot be empty"),
+  name: z.string('name must be a string').min(1, 'name cannot be empty'),
   operator: RestFilterFieldOperatorSchema,
-  values: z.array(
-      z.string({ invalid_type_error: "each filter value must be a string" })
-    ).min(1, "values must have at least one element"),
+  values: z.array(z.string('each filter value must be a string')).min(1, 'values must have at least one element'),
 });
 
 export interface GetAllRestQueryParams {
@@ -56,21 +49,11 @@ export interface GetAllRestQueryParams {
 }
 
 export const GetAllRestQueryParamsSchema = z.object({
-  page: z.number({ invalid_type_error: "page must be a number" })
-    .int("page must be an integer")
-    .positive("page must be greater than 0")
-    .optional(),
-
-  limit: z.number({ invalid_type_error: "limit must be a number" })
-    .int("limit must be an integer")
-    .positive("limit must be greater than 0")
-    .optional(),
-
+  page: z.int('page must be an integer').positive('page must be greater than 0').optional(),
+  limit: z.int('limit must be an integer').positive('limit must be greater than 0').optional(),
   sort: z.array(RestSortFieldSchema).optional(),
-
   filters: z.array(RestFilterFieldSchema).optional(),
-
-  fields: z.array(z.string({ invalid_type_error: "each field must be a string" })).optional(),
+  fields: z.array(z.string('each field must be a string')).optional(),
 });
 
 export interface GetAllRestPaginatedResponse<T> {
