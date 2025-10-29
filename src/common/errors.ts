@@ -23,6 +23,10 @@ export class NotFoundError extends BaseError {
   readonly code: number = 404;
 }
 
+export class RequestTimeoutError extends BaseError {
+  readonly code: number = 408;
+}
+
 export class InternalServerError extends BaseError {
   readonly code: number = 500;
 }
@@ -32,6 +36,7 @@ const errorMap: Record<number, new (message: string) => BaseError> = {
   401: UnauthorizedError,
   403: ForbiddenError,
   404: NotFoundError,
+  408: RequestTimeoutError,
   500: InternalServerError
 };
 
