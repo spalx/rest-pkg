@@ -46,6 +46,7 @@ export interface GetAllRestQueryParams {
   sort?: RestSortField[];
   filters?: RestFilterField[];
   fields?: string[];
+  paginated?: boolean;
 }
 
 export const GetAllRestQueryParamsSchema = z.object({
@@ -54,6 +55,7 @@ export const GetAllRestQueryParamsSchema = z.object({
   sort: z.array(RestSortFieldSchema).optional(),
   filters: z.array(RestFilterFieldSchema).optional(),
   fields: z.array(z.string('each field must be a string')).optional(),
+  paginated: z.boolean('paginated must be a boolean').optional(),
 });
 
 export interface GetAllRestPaginatedResponse<T> {
